@@ -22,9 +22,13 @@
    *
    *  Grade: 15%
    */
-  Date::Date(int month, int day, int year) {
-	
-  }
+ Date::Date(int month, int day, int year) {
+	 this->month = month;
+	 this->day = day;
+	 this->year = year;
+	 if (!isValidDate())
+		 cout << "The date is not a valid date" << endl;
+ }
   
 
   /** 
@@ -36,9 +40,9 @@
    *
    *  Grade: 30%
    */
-  Date::Date(const string& s) {
-
-  }
+ Date::Date(const string& s) {
+	 
+ }
 
 
   /** 
@@ -47,9 +51,19 @@
    *
    *  Grade: 10%
    */
-  bool Date::isLeapYear(int year) {
-    return true;                        // replace this line with your solution
-  }
+ bool Date::isLeapYear(int year) {
+	 if (year % 4 == 0)
+	 {
+		 if (year % 400 == 0)
+			 return true;
+		 else if (year % 100 == 0)
+			 return false;
+		 else
+			 return true;
+	 }
+	 else
+		 return false;
+ }
 
 
   /** 
@@ -60,9 +74,21 @@
    *
    *  Grade: 10%
    */
-  int Date::daysInMonth(int month, int year) {
-    return 0;                           // replace this line with your solution
-  }
+int Date::daysInMonth(int month, int year) {
+	int day;
+	switch (month)
+	{
+	case:1,3,5,7,8,10,12
+		day=31;
+	case:4, 6, 9, 11
+		day = 30;
+	case:2
+		if (isLeapYear(year))
+			day = 29;
+		else
+			day = 28;
+	return day;
+}
 
 
   /** 
@@ -73,9 +99,9 @@
    *
    *  Grade: 20%
    */
-  bool Date::isValidDate(int month, int day, int year) {
+ bool Date::isValidDate(int month, int day, int year) {
     return true;                        // replace this line with your solution
-  }
+ }
 
 
   /** 
@@ -86,9 +112,9 @@
    *
    *  Grade: 20%
    */
-  string Date::toString() {
+ string Date::toString() {
     return "stuff";                     // replace this line with your solution
-  }
+ }
 
 
   /** 
@@ -97,9 +123,9 @@
    *
    *  Grade: 10%
    */
-  bool Date::isBefore(const Date& d) {
+ bool Date::isBefore(const Date& d) {
     return true;                        // replace this line with your solution
-  }
+ }
   
 
   /** 
@@ -108,9 +134,9 @@
    *
    *  Grade: 10%
    */
-  bool Date::isAfter(const Date& d) {
+ bool Date::isAfter(const Date& d) {
     return true;                        // replace this line with your solution
-  }
+ }
   
   
   /** 
@@ -119,9 +145,9 @@
    *
    *  Grade: 10%
    */
-  bool Date::isEqual(const Date& d) {
+ bool Date::isEqual(const Date& d) {
     return true;                        // replace this line with your solution
-  }
+ }
   
 
   /** 
@@ -132,9 +158,9 @@
    *
    *  Grade: 15%
    */
-  int Date::dayInYear() {
+ int Date::dayInYear() {
     return 0;                           // replace this line with your solution
-  }
+ }
   
 
   /** Determines the difference in days between d and this Date.  For example,
@@ -144,7 +170,7 @@
    *
    *  Grade: 10%
    */
-  int Date::difference(const Date& d) {
+ int Date::difference(const Date& d) {
     return 0;                           // replace this line with your solution
-  }
+ }
 
