@@ -2,9 +2,11 @@
 #include <iostream>
 #include "DList.h"
 #include "DListNode.h"
-/*#include "LockDList.h"
+#include "DList.cpp"
+#include "DListNode.cpp"
+#include "LockDList.h"
 #include "LockDList.cpp"
-#include "LockDListNode.h"*/
+#include "LockDListNode.h"
 using namespace std;
 
 int main() {
@@ -105,7 +107,7 @@ int main() {
   assert(d1.front()->item == 12345 && d1.back()->item == 1);
   cout << "->OK" << endl;
   
-  /*cout << endl;
+  cout << endl;
   cout << "========================" << endl;
   cout << "Part 2 Testing LockDList" << endl;
   cout << "========================" << endl;
@@ -129,6 +131,7 @@ int main() {
   }
   assert(ld1.front()->item == 1 && ld1.back()->item == 5);
   ld1.toString();
-  */
+  
+  system("PAUSE");
   return 0;
 }
