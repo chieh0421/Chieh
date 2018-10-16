@@ -20,6 +20,8 @@ public:
 	LockDListNode(const T& i, DListNode<T>* p, DListNode<T>* n) {
 		DListNode<T>(i, p, n);
 	}
+	void Lockon() { lock = true; }
+	bool lockornot() { return(lock == true ? true : false); }
 };
 
 

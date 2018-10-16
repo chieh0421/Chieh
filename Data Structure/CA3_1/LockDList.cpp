@@ -3,6 +3,6 @@
 #include "LockDListNode.h"
 
 template <typename T>
-void LockDList<T>::lockNode(LockDListNode<T>* node){
-	lock = true;
+void LockDList<T>::lockNode(DListNode<T>* node){
+	static_cast<LockDListNode<T>*>(node)->Lockon();
 }

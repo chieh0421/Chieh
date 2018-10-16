@@ -16,7 +16,7 @@
 template <typename T>
 class LockDList: public DList<T> {
 public:
-	void lockNode(LockDListNode<T>* node);
+	void lockNode(DListNode<T>* node);
 };
 
 #endif // !LOCKDLIST_H
