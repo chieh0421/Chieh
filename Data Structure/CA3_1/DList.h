@@ -1,14 +1,4 @@
 /**
- * Briefly explain the function of this class.
- *
- * @author 			Ming Chieh Chen
- * @ID 				B06505047
- * @Department 		Engineering Science and Ocean Engineering
- * @Affiliation 	National Taiwan University
- *
- */
-
-/**
  *  A DList is a mutable doubly-linked list ADT.  Its implementation is
  *  circularly-linked and employs a sentinel (dummy) node at the head
  *  of the list.
