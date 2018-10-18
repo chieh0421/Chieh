@@ -1,4 +1,14 @@
 /**
+ * Briefly explain the function of this class.
+ *
+ * @author 			Ming Chieh Chen
+ * @ID 				B06505047
+ * @Department 		Engineering Science and Ocean Engineering
+ * @Affiliation 	National Taiwan University
+ *
+ */
+
+/**
  *  A DListNode is a node in a DList (doubly-linked list).
  */
 
@@ -17,4 +27,6 @@ DListNode<T>::DListNode(const T& i, DListNode<T>* p,
 	prev = p;
 	next = n;
 }
+
+
 

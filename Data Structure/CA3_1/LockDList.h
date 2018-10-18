@@ -17,7 +17,9 @@ template <typename T>
 class LockDList: public DList<T> {
 public:
 	void lockNode(DListNode<T>* node);
-	/*virtual LockDListNode<T>* newNode(const T& item, DListNode<T>* prev, DListNode<T>* next);*/
+	DListNode<T>* newNode(const T& item, DListNode<T>* prev, DListNode<T>* next);
+	void remove(DListNode<T>* node);
+	LockDList() { DList<T>(); }
 };
 
 #endif // !LOCKDLIST_H

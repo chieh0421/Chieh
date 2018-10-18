@@ -1,4 +1,14 @@
 /**
+ * Briefly explain the function of this class.
+ *
+ * @author 			Ming Chieh Chen
+ * @ID 				B06505047
+ * @Department 		Engineering Science and Ocean Engineering
+ * @Affiliation 	National Taiwan University
+ *
+ */
+
+/**
  *  A DListNode is a node in a DList (doubly-linked list).
  */
 
@@ -33,6 +43,7 @@ public:
 	 *  @param n the node following this node.
 	 */
 	DListNode(const T& i, DListNode<T>* p, DListNode<T>* n);
+	virtual ~DListNode() {};
 };
 
 #endif

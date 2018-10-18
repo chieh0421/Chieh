@@ -229,8 +229,6 @@ void DList<T>::remove(DListNode<T>* node) {
 	// Your solution here.
 	if (node == NULL)
 		return;
-	if (static_cast<LockDListNode<T>*>(node)->lockornot())
-		return;
 	node->next->prev = node->prev;
 	node->prev->next = node->next;
 	delete node;

@@ -15,12 +15,12 @@
 template <typename T>
 class LockDListNode :public DListNode<T> {
 private:
-	bool lock=false;
+	bool lock;
 public:
-	LockDListNode(const T& i, DListNode<T>* p, DListNode<T>* n) {
-		DListNode<T>(i, p, n);
+	LockDListNode(const T& i, DListNode<T>* p, DListNode<T>* n) :DListNode<T>(i, p, n) {
+		lock = false;
 	}
-	void Lockon() { lock = true; }
+	void lockon() { lock = true; }
 	bool lockornot() { return(lock == true ? true : false); }
 };
 
