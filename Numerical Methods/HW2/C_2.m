@@ -34,4 +34,5 @@ plot(x,fov,"b+","markersize",10,dx,df(dx),"k");
 legend("Computed Derivative","Exact Derivative","location","south");
 xlabel("x");
 ylabel("f'(x)");
+title("C.2");
 print("-djpg","C_2");
