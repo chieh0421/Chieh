@@ -10,6 +10,7 @@
  **/
 
 #include "HashTableChained.h"
+#include "nearistPrime.cpp"
 
 /**
  *  Construct a new empty hash table intended to hold roughly sizeEstimate
@@ -40,6 +41,7 @@ HashTableChained<K, V>::HashTableChained() {
 template<typename K, typename V>
 int HashTableChained<K, V>::compFunction(int code) {
     // Replace the following line with your solution.
+	
     return 88;
 }
 
@@ -52,7 +54,7 @@ int HashTableChained<K, V>::compFunction(int code) {
 template<typename K, typename V>
 int HashTableChained<K, V>::size() {
     // Replace the following line with your solution.
-    return 0;
+    return size;
 }
 
 /**
@@ -80,6 +82,7 @@ bool HashTableChained<K, V>::isEmpty() {
 template<typename K, typename V>
 void HashTableChained<K, V>::insert(const K& key, const V& value) {
     // Replace the following line with your solution.
+	size += 1;
 }
 
 /**

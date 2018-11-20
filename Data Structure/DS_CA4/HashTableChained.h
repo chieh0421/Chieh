@@ -23,6 +23,7 @@ private:
   /**
    *  Place any data fields here.
    **/
+	int size;
 
 public:
 
