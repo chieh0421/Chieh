@@ -13,20 +13,6 @@
 #include <list>
 using namespace std;
 
-bool isPrime(int p)  //whether p is prime or not
-{
-	int i;
-	for (i = 2; i < p; i++)
-	{
-		if (p%i == 0)
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
-
 /**
  *  Construct a new empty hash table intended to hold roughly sizeEstimate
  *  entries.  (The precise number of buckets is up to you, but we recommend
@@ -36,8 +22,12 @@ template<typename K, typename V>
 HashTableChained<K, V>::HashTableChained(int sizeEstimate) {
     // Your solution here.
 	int tablelength=sizeEstimate;
-	while (!isPrime(tablelength)) {
-		tablelength--;
+	bool PrimeorNot = false;
+	for (int i = 2; i < tablelength; i++) {
+		if (tablelength%i == 0) {
+				tablelength--;
+				continue;
+		}
 	}
 	hashtable = new list<Entry<K, V>>[tablelength];
 	length = tablelength;
@@ -129,7 +119,7 @@ bool HashTableChained<K, V>::find(const K& key) {
 	int pos = compFunction(key->hashCode());
 	list<Entry<K, V>>* here = &hashtable[pos];
 	for (auto it = here->begin(); it != here->end(); ++it) {
-		if (it.getkey() == key) {
+		if (it->getkey() == key) {
 			return true;
 		}
 	}
@@ -152,7 +142,7 @@ void HashTableChained<K, V>::remove(const K&  key) {
 	int pos = compFunction(key->hashCode());
 	list<Entry<K, V>>* here = &hashtable[pos];
 	for (auto it = here->begin(); it != here->end(); ++it) {
-		if (it.getkey() == key){
+		if (it->getkey() == key){
 			here->erase(it);
 			entryNumber--;
 			return;

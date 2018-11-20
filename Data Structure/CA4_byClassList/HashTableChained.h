@@ -17,7 +17,6 @@
 #include <list>
 using namespace std;
 
-
 template<typename K, typename V>
 class HashTableChained : public Dictionary<K, V> {
 private:
