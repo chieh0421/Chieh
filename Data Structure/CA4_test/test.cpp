@@ -11,8 +11,9 @@ int main() {
 
 	int i; //Test insert() and print()
 	for (i = 0; i < 97; i++) {
-		Double in((double)(i+0.1));
-		Table->insert(&in,i);
+		Double* in = new Double((double)i + 0.1);
+		cout << in->getvalue() << endl;
+		Table->insert(in,i);
 	}
 	Table->print();
 

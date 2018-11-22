@@ -6,6 +6,8 @@
 #include "Double.h"
 #include <cmath>
 #include <typeinfo>
+#include <functional>
+using namespace std;
 
 /**
  *  Construct a new Double with the given variable.
@@ -45,10 +47,6 @@ bool Double::equals(const Double& db) {
  */
 int Double::hashCode() {
     // Replace the following line with your solution.
-	union {
-		double dou;
-		long long int i;
-	}u;
-	u.dou = d;
-	return pow(u.i, u.i >> 32);
+	hash<double> dou_hash;
+	return dou_hash(d);
 }

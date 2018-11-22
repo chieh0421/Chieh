@@ -5,6 +5,8 @@
 
 #include "String.h"
 #include <typeinfo>
+#include <functional>
+using namespace std;
 
 /**
  *  Construct a new String with the given variable.
@@ -44,13 +46,6 @@ bool String::equals(const String& strg) {
  */
 int String::hashCode() {
     // Replace the following line with your solution.
-	int hashVal = 0;
-    int stringlength = this->getvalue().size();
-    int i = 0;
-    for(; i < stringlength-1; i += 1)
-    {
-        hashVal = (127 * hashVal + int(this->getvalue().at(i))) % 1690877;//TODO: need to be changed
-    }
-    hashVal = 127 * hashVal + int(this->getvalue().at(i));
-	return hashVal;
+	hash<string> str_hash;
+	return str_hash(str);
 }

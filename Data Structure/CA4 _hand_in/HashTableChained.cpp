@@ -15,7 +15,6 @@
 #include "String.h"
 #include "Integer.h"
 #include "CheckerBoard.h"
-#include <typeinfo>
 #include <iostream>
 using namespace std;
 
@@ -104,7 +103,7 @@ void HashTableChained<K, V>::insert(const K& key, const V& value) {
     // Replace the following line with your solution.
 	Entry<K, V> item(key, value);
 	K keyin = key;
-	int hash = keyin.hashCode();
+	int hash = keyin->hashCode();
 	int pos = compFunction(hash);
 	list<Entry<K, V>>* here = &hashtable[pos];
 	here->push_back(item);
@@ -125,11 +124,11 @@ template<typename K, typename V>
 bool HashTableChained<K, V>::find(const K& key) {
     // Replace the following line with your solution.
 	K keyin = key;
-	int hash = keyin.hashCode();
+	int hash = keyin->hashCode();
 	int pos = compFunction(hash);
 	list<Entry<K, V>>* here = &hashtable[pos];
 	for (auto it = here->begin(); it != here->end(); ++it) {
-		if (it->getkey().equals(key)) {
+		if (it->getkey()->equals(*key)) {
 			return true;
 		}
 	}
@@ -150,11 +149,11 @@ template<typename K, typename V>
 void HashTableChained<K, V>::remove(const K&  key) {
     // Replace the following line with your solution.
 	K keyin = key;
-	int hash = keyin.hashCode();
+	int hash = keyin->hashCode();
 	int pos = compFunction(hash);
 	list<Entry<K, V>>* here = &hashtable[pos];
 	for (auto it = here->begin(); it != here->end(); ++it) {
-		if (it->getkey().equals(key)){
+		if (it->getkey()->equals(*key)){
 			here->erase(it);
 			entryNumber--;
 			return;
@@ -187,7 +186,7 @@ void HashTableChained<K, V>::print() {
 			continue;
 		}			
 		for (auto it = here->begin(); it != here->end(); ++it) {
-			cout << "(" << it->getkey().getvalue() << "," << it->getvalue() << ") ";
+			cout << "(" << it->getkey()->getvalue() << "," << it->getvalue() << ") ";
 		}
 		cout << endl;
 	}
