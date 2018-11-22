@@ -1,8 +1,8 @@
 /**
  * Briefly explain the function of this class->
  *
- * @author 			Your name here
- * @ID 				Your student ID here
+ * @author 			Ming Chieh Chen
+ * @ID 				B06505047
  * @Department 		Engineering Science and Ocean Engineering
  * @Affiliation 	National Taiwan University
  *
