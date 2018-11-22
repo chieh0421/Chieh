@@ -7,25 +7,25 @@
 
 int main() {
 	//Test all method in HashTableChained
-	HashTableChained<Integer, int>* Table = new HashTableChained<Integer, int>;
+	HashTableChained<Double*, int>* Table = new HashTableChained<Double*, int>;
 
 	int i; //Test insert() and print()
 	for (i = 0; i < 97; i++) {
-		Integer in(i);
-		Table->insert(in,i);
+		Double in((double)(i+0.1));
+		Table->insert(&in,i);
 	}
 	Table->print();
 
 	cout << "There are " << Table->size() << " entries in the table" << endl; //Test size()	
 
-	Integer f(50); //Test find()
-	if (Table->find(f))
+	Double f(50.1); //Test find()
+	if (Table->find(&f))
 		cout << "The entry whose key is 50 can be found." << endl;
 	else
 		cout << "The entry whose key is 50 can't be found." << endl;
 
-	Table->remove(f); //Test remove()
-	if (Table->find(f))
+	Table->remove(&f); //Test remove()
+	if (Table->find(&f))
 		cout << "The entry whose key is 50 still exists." << endl;
 	else
 		cout << "The entry whose key is 50 has been removed." << endl;
