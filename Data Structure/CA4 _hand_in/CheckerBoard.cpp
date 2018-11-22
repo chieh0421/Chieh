@@ -12,6 +12,8 @@
  **/
 
 #include "CheckerBoard.h"
+#include <cmath>
+#include <typeinfo>
 
 /**
  *  Construct a new board in which all cells are zero.
@@ -59,7 +61,20 @@ bool CheckerBoard::equals(const CheckerBoard& board) {
     // Replace the following line with your solution.  Be sure to return false
     //   (rather than throwing a ClassCastException) if "board" is not
     //   a CheckerBoard.
-    return false;
+	if (typeid(board) == typeid(CheckerBoard)) {
+		CheckerBoard in = board;
+		for (int i = 0; i < DIMENSION; i++) {
+			for (int j = 0; j < DIMENSION; j++) {
+				if (! elementAt(i, j) == in.elementAt(i, j))
+					return false;
+			}
+		}
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
 }
 
 /**
@@ -68,5 +83,11 @@ bool CheckerBoard::equals(const CheckerBoard& board) {
  */
 int CheckerBoard::hashCode() {
     // Replace the following line with your solution.
-    return 99;
+	int result = 0;
+	for (int i = 0; i < DIMENSION; i++) {
+		for (int j = 0; j < DIMENSION; j++) {
+			result += (int)(elementAt(i, j)*pow(3, (8 * i + j)));
+		}
+	}
+    return result;
 }

@@ -15,7 +15,10 @@
 #include "Integer.h"
 #include "HashTableChained.h"
 #include "CheckerBoard.h"
+#include "HashTableChained.cpp"
 
+template <typename K, typename V>
+void initTable(HashTableChained<K, V>* table, int numBoards);
 
 int main() {
 

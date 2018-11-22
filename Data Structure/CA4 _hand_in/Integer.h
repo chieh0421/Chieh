@@ -4,6 +4,7 @@
  *  DO NOT CHANGE ANY PROTOTYPES IN THIS FILE.
  **/
 
+#include <typeinfo>
 #ifndef INTEGER_H
 #define INTEGER_H
 
@@ -28,6 +29,20 @@ public:
   int getvalue() const {
     return i;
   }
+
+  bool equals(const Integer& inte) {
+	  if (typeid(Integer) != typeid(inte))
+		  return false;
+	  if (inte.getvalue() == i)
+		  return true;
+	  return false;
+  }
+
+  int hashCode() {
+	  return i;
+  }
+
+  Integer() {};
 };
 
 #endif

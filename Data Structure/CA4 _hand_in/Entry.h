@@ -20,11 +20,11 @@ public:
     value = v;
   }
 
-  K& getkey() const {
+  K getkey() const {
     return key;
   }
 
-  V& getvalue() const {
+  V getvalue() const {
     return value;
   }
 

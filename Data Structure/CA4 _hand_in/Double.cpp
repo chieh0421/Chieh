@@ -4,6 +4,8 @@
  **/
 
 #include "Double.h"
+#include <cmath>
+#include <typeinfo>
 
 /**
  *  Construct a new Double with the given variable.
@@ -30,6 +32,10 @@ bool Double::equals(const Double& db) {
     // Replace the following line with your solution.  Be sure to return false
     //   (rather than throwing a ClassCastException) if "db" is not
     //   a Double.
+	if ( typeid(Double) != typeid(db))
+		return false;
+	if (db.getvalue() == d)
+		return true;
     return false;
 }
 
@@ -39,5 +45,10 @@ bool Double::equals(const Double& db) {
  */
 int Double::hashCode() {
     // Replace the following line with your solution.
-    return 77;
+	union {
+		double dou;
+		long long int i;
+	}u;
+	u.dou = d;
+	return pow(u.i, u.i >> 32);
 }

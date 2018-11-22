@@ -10,7 +10,14 @@
  **/
 
 #include "HashTableChained.h"
-#include "nearistPrime.cpp"
+#include <list>
+#include "Double.h"
+#include "String.h"
+#include "Integer.h"
+#include "CheckerBoard.h"
+#include <typeinfo>
+#include <iostream>
+using namespace std;
 
 /**
  *  Construct a new empty hash table intended to hold roughly sizeEstimate
@@ -20,6 +27,16 @@
 template<typename K, typename V>
 HashTableChained<K, V>::HashTableChained(int sizeEstimate) {
     // Your solution here.
+	int tablelength = sizeEstimate;
+	for (int i = 2; i < tablelength; i++) {
+		if (tablelength%i == 0) {
+				tablelength--;
+				i = 1;
+				continue;
+		}
+	}
+	hashtable = new list<Entry<K, V>>[tablelength];
+	length = tablelength;
 }
 
 /**
@@ -29,6 +46,8 @@ HashTableChained<K, V>::HashTableChained(int sizeEstimate) {
 template<typename K, typename V>
 HashTableChained<K, V>::HashTableChained() {
     // Your solution here.
+	hashtable = new list<Entry<K, V>>[97];
+	length = 97;
 }
 
 /**
@@ -41,8 +60,9 @@ HashTableChained<K, V>::HashTableChained() {
 template<typename K, typename V>
 int HashTableChained<K, V>::compFunction(int code) {
     // Replace the following line with your solution.
-	
-    return 88;
+	int value;
+	value = (int)abs(((code * 57 + 86) % 233) % length);
+	return value;
 }
 
 /**
@@ -54,7 +74,7 @@ int HashTableChained<K, V>::compFunction(int code) {
 template<typename K, typename V>
 int HashTableChained<K, V>::size() {
     // Replace the following line with your solution.
-    return size;
+    return entryNumber;
 }
 
 /**
@@ -65,7 +85,7 @@ int HashTableChained<K, V>::size() {
 template<typename K, typename V>
 bool HashTableChained<K, V>::isEmpty() {
     // Replace the following line with your solution.
-    return true;
+	return entryNumber == 0 ? true : false;
 }
 
 /**
@@ -82,7 +102,13 @@ bool HashTableChained<K, V>::isEmpty() {
 template<typename K, typename V>
 void HashTableChained<K, V>::insert(const K& key, const V& value) {
     // Replace the following line with your solution.
-	size += 1;
+	Entry<K, V> item(key, value);
+	K keyin = key;
+	int hash = keyin.hashCode();
+	int pos = compFunction(hash);
+	list<Entry<K, V>>* here = &hashtable[pos];
+	here->push_back(item);
+	entryNumber++;
 }
 
 /**
@@ -98,6 +124,15 @@ void HashTableChained<K, V>::insert(const K& key, const V& value) {
 template<typename K, typename V>
 bool HashTableChained<K, V>::find(const K& key) {
     // Replace the following line with your solution.
+	K keyin = key;
+	int hash = keyin.hashCode();
+	int pos = compFunction(hash);
+	list<Entry<K, V>>* here = &hashtable[pos];
+	for (auto it = here->begin(); it != here->end(); ++it) {
+		if (it->getkey().equals(key)) {
+			return true;
+		}
+	}
     return false;
 }
 
@@ -114,6 +149,17 @@ bool HashTableChained<K, V>::find(const K& key) {
 template<typename K, typename V>
 void HashTableChained<K, V>::remove(const K&  key) {
     // Replace the following line with your solution.
+	K keyin = key;
+	int hash = keyin.hashCode();
+	int pos = compFunction(hash);
+	list<Entry<K, V>>* here = &hashtable[pos];
+	for (auto it = here->begin(); it != here->end(); ++it) {
+		if (it->getkey().equals(key)){
+			here->erase(it);
+			entryNumber--;
+			return;
+		}
+	}
 }
 
 /**
@@ -122,4 +168,28 @@ void HashTableChained<K, V>::remove(const K&  key) {
 template<typename K, typename V>
 void HashTableChained<K, V>::makeEmpty() {
     // Your solution here.
+	int i;
+	for (i = 0; i < length; i++) {
+		list<Entry<K, V>>*here = &hashtable[i];
+		here->clear();
+		}
+	entryNumber = 0;
+}
+
+template<typename K, typename V>
+void HashTableChained<K, V>::print() {
+	int i;
+	for (i = 0; i < length; i++) {
+		list<Entry<K, V>>*here = &hashtable[i];
+		cout << "hashtable[" << i << "] : ";
+		if (here->size() == 0) {
+			cout << "nothing" << endl;
+			continue;
+		}			
+		for (auto it = here->begin(); it != here->end(); ++it) {
+			cout << "(" << it->getkey().getvalue() << "," << it->getvalue() << ") ";
+		}
+		cout << endl;
+	}
+	cout << "print complete" << endl;
 }

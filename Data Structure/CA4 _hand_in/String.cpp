@@ -4,6 +4,7 @@
  **/
 
 #include "String.h"
+#include <typeinfo>
 
 /**
  *  Construct a new String with the given variable.
@@ -30,7 +31,11 @@ bool String::equals(const String& strg) {
     // Replace the following line with your solution.  Be sure to return false
     //   (rather than throwing a ClassCastException) if "strg" is not
     //   a String.
-    return false;
+	if (typeid(String) != typeid(strg))
+		return false;
+	if (strg.getvalue() == str)
+		return true;
+	return false;
 }
 
 /**
@@ -39,5 +44,13 @@ bool String::equals(const String& strg) {
  */
 int String::hashCode() {
     // Replace the following line with your solution.
-    return 66;
+	int hashVal = 0;
+    int stringlength = this->getvalue().size();
+    int i = 0;
+    for(; i < stringlength-1; i += 1)
+    {
+        hashVal = (127 * hashVal + int(this->getvalue().at(i))) % 1690877;//TODO: need to be changed
+    }
+    hashVal = 127 * hashVal + int(this->getvalue().at(i));
+	return hashVal;
 }

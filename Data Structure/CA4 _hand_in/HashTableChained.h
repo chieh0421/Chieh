@@ -14,7 +14,8 @@
 #define HASHTABLECHAINED_H
 
 #include "Dictionary.h"
-
+#include <list>
+using namespace std;
 
 template<typename K, typename V>
 class HashTableChained : public Dictionary<K, V> {
@@ -23,7 +24,8 @@ private:
   /**
    *  Place any data fields here.
    **/
-	int size;
+	int length,entryNumber;
+	list<Entry<K, V>>* hashtable;
 
 public:
 
@@ -104,6 +106,8 @@ public:
    *  Remove all entries from the dictionary.
    */
   virtual void makeEmpty();
+
+  void print();
 };
 
 #endif
