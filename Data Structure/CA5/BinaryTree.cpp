@@ -201,40 +201,47 @@ void BinaryTree<K, V>::remove(const K& key) {
 		while (subNode->leftChild != NULL)
 			subNode = subNode->leftChild;
 
-		if (subNode->rightChild != NULL) {
-			if ((subNode->parent->entry->getkey()).compareTo(subNode->rightChild->entry->getkey())) {
-				subNode->parent->leftChild = subNode->rightChild;
-				subNode->rightChild->parent = subNode->parent;
+		if (subNode->parent == node) {
+			if (node == root) {
+				root = subNode;
 			}
 			else {
-				subNode->parent->rightChild = subNode->rightChild;
-				subNode->rightChild->parent = subNode->parent;
+				if (LorR) {
+					node->parent->rightChild = subNode;
+				}
+				else {
+					node->parent->leftChild = subNode;
+				}
+				subNode->parent = node->parent;
 			}
-		}
-
-		subNode->parent = node->parent;
-		if (node->leftChild != subNode) {
 			subNode->leftChild = node->leftChild;
-			node->leftChild->parent = subNode;
-		}
-		if (node->rightChild != subNode) {
-			subNode->rightChild = node->rightChild;
-			node->rightChild->parent = subNode;
-		}
-		if (root_ornot) {
-			root = subNode;
-			delete node;
+			if (node->leftChild != NULL)
+				node->leftChild->parent = subNode;
 		}
 		else {
-			if (LorR) {
-				node->parent->rightChild = subNode;
-				delete node;
+			subNode->parent->leftChild = subNode->rightChild;
+			if (subNode->rightChild != NULL)
+				subNode->rightChild->parent=subNode->parent;
+			if (node == root) {
+				root = subNode;
 			}
 			else {
-				node->parent->leftChild = subNode;
-				delete node;
+				if (LorR) {
+					node->parent->rightChild = subNode;
+				}
+				else {
+					node->parent->leftChild = subNode;
+				}
+				subNode->parent = node->parent;
 			}
+			subNode->leftChild = node->leftChild;
+			subNode->rightChild = node->rightChild;
+			if (node->leftChild != NULL)
+				node->leftChild->parent = subNode;
+			if (node->rightChild != NULL)
+				node->rightChild->parent = subNode;
 		}
+		delete node;
 	}
 	tsize--;
 }
@@ -247,7 +254,6 @@ void BinaryTree<K, V>::makeEmpty() {
   // Your solution here.
 	while (tsize != 0) {
 		remove(root->entry->getkey());
-		toString();
 	}
 }
 
