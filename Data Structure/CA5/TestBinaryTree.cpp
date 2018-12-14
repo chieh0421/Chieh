@@ -75,5 +75,8 @@ int main() {
   if(tree->size() != 4)
     cout << "  SHOULD BE 6." << endl;
 
+  tree->makeEmpty();
+  tree->toString();
+  system("PAUSE");
   return 0;
 }

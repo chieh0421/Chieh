@@ -1,0 +1,35 @@
+BinaryTreeNode<K, V>* subNode = node->rightChild;
+		if (subNode->leftChild == NULL) {
+			subNode->leftChild = node->leftChild;
+		}
+		else {
+			while (subNode->leftChild != NULL) {
+				subNode = subNode->leftChild;
+			}
+			if (subNode->rightChild != NULL) {
+				subNode->rightChild->parent = subNode->parent;
+			}
+			subNode->parent->leftChild = subNode->rightChild;
+			subNode->leftChild = node->leftChild;
+			subNode->rightChild = node->rightChild;
+		}
+		subNode->parent = node->parent;
+		if (root_ornot) {
+			root = subNode;
+			if (node->leftChild != NULL)
+				node->leftChild->parent = subNode;
+			if (node->rightChild != NULL)
+				node->rightChild->parent = subNode;
+			delete node;
+		}
+		else {
+			if (LorR) {
+				node->parent->rightChild = subNode;
+				delete node;
+			}
+			else {
+				node->parent->leftChild = subNode;
+				delete node;
+			}
+		}
+	}

@@ -74,7 +74,30 @@ void BinaryTree<K, V>::insert(const K& key, const V& value) {
 template<typename K, typename V>
 BinaryTreeNode<K, V>* BinaryTree<K, V>::findHelper(const K& key, BinaryTreeNode<K, V>* node) {
   // Replace the following line with your solution.
-  return NULL;
+	if (node == NULL)
+		return NULL;
+	else
+	{
+		if (key.compareTo(node->entry->getkey()) == 0) {
+			return node;
+		}
+		else if (key.compareTo(node->entry->getkey()) < 0) {
+			if (node->leftChild == NULL) {
+				return NULL;
+			}
+			else {
+				findHelper(key, node->leftChild);
+			}
+		}
+		else {
+			if (node->rightChild == NULL) {
+				return NULL;
+			}
+			else {
+				findHelper(key, node->rightChild);
+			}
+		}
+	}
 }
 
 /**
@@ -106,6 +129,114 @@ Entry<K, V>* BinaryTree<K, V>::find(const K& key) {
 template<typename K, typename V>
 void BinaryTree<K, V>::remove(const K& key) {
   // Your solution here.
+	BinaryTreeNode<K, V>* node = findHelper(key, root);
+	if (node == NULL)
+		return;
+	bool left, right, root_ornot, LorR; //LorR mean the node is parent's leftchild(0) or rightchild(1)
+	left = !(node->leftChild == NULL);
+	right = !(node->rightChild == NULL);
+	root_ornot = (node == root);
+	if (!root_ornot) {
+		if (key.compareTo(node->parent->entry->getkey())<=0)
+			LorR = false;
+		else
+			LorR = true;
+	}
+	if (left == false && right == false) { //nochild
+		if (root_ornot) {
+			root = NULL;
+			delete node;
+		}
+		else {
+			if (LorR){
+				node->parent->rightChild = NULL;
+				delete node;
+			}
+			else {
+				node->parent->leftChild = NULL;
+				delete node;
+			}
+		}
+	}
+	else if(left == true && right == false) {//one child(left)
+		if (root_ornot) {
+			root = node->leftChild;
+			node->leftChild->parent = NULL;
+			delete node;
+		}
+		else {
+			if (LorR) {
+				node->parent->rightChild = node->leftChild;
+				node->leftChild->parent = node->parent;
+				delete node;
+			}
+			else {
+				node->parent->leftChild = node->leftChild;
+				node->leftChild->parent = node->parent;
+				delete node;
+			}
+		}
+	}
+	else if (left == false && right == true) {//one child(right)
+		if (root_ornot) {
+			root = node->rightChild;
+			node->rightChild->parent = NULL;
+			delete node;
+		}
+		else {
+			if (LorR) {
+				node->parent->rightChild = node->rightChild;
+				node->rightChild->parent = node->parent;
+				delete node;
+			}
+			else {
+				node->parent->leftChild = node->rightChild;
+				node->rightChild->parent = node->parent;
+				delete node;
+			}
+		}
+	}
+	else {//two children
+		BinaryTreeNode<K, V>* subNode = node->rightChild;
+		while (subNode->leftChild != NULL)
+			subNode = subNode->leftChild;
+
+		if (subNode->rightChild != NULL) {
+			if ((subNode->parent->entry->getkey()).compareTo(subNode->rightChild->entry->getkey())) {
+				subNode->parent->leftChild = subNode->rightChild;
+				subNode->rightChild->parent = subNode->parent;
+			}
+			else {
+				subNode->parent->rightChild = subNode->rightChild;
+				subNode->rightChild->parent = subNode->parent;
+			}
+		}
+
+		subNode->parent = node->parent;
+		if (node->leftChild != subNode) {
+			subNode->leftChild = node->leftChild;
+			node->leftChild->parent = subNode;
+		}
+		if (node->rightChild != subNode) {
+			subNode->rightChild = node->rightChild;
+			node->rightChild->parent = subNode;
+		}
+		if (root_ornot) {
+			root = subNode;
+			delete node;
+		}
+		else {
+			if (LorR) {
+				node->parent->rightChild = subNode;
+				delete node;
+			}
+			else {
+				node->parent->leftChild = subNode;
+				delete node;
+			}
+		}
+	}
+	tsize--;
 }
 
 /**
@@ -114,6 +245,10 @@ void BinaryTree<K, V>::remove(const K& key) {
 template<typename K, typename V>
 void BinaryTree<K, V>::makeEmpty() {
   // Your solution here.
+	while (tsize != 0) {
+		remove(root->entry->getkey());
+		toString();
+	}
 }
 
 /**

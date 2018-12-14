@@ -19,7 +19,7 @@ class BinaryTree : public Dictionary<K, V> {
    **/
 protected:
   int tsize;
-  BinaryTreeNode<K, V>* root;
+  BinaryTreeNode<K, V>* root = NULL;
 
 public:
   BinaryTree();
