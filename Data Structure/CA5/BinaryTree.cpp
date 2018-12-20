@@ -3,6 +3,7 @@ using namespace std;
 
 template<typename K, typename V>
 BinaryTree<K, V>::BinaryTree() {
+  tsize = 0;
   makeEmpty();
 }
 

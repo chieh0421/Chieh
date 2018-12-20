@@ -74,6 +74,6 @@ int main() {
   cout << "Size:  " << tree->size() << endl;
   if(tree->size() != 4)
     cout << "  SHOULD BE 6." << endl;
-
+  system("PAUSE");
   return 0;
 }
