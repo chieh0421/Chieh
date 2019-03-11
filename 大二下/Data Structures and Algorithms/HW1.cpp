@@ -1,28 +1,40 @@
 #include <iostream>
-#include <vector>
+#include <map>
 #include <algorithm>
 using namespace std;
 
-int Kth_smallest_number(vector<int> in, int K) {
-	vector<int> cur(in.begin(), in.end());
-	sort(cur.begin(), cur.end());
-	return cur[K - 1];
-}
 
 int main()
 {
 	int N, M, K, cur;
 	cin >> N >> M >> K;
-	vector<int> int_arr;
-	while (int_arr.size() < M - 1) {
+	/*deque<int>  window;
+	int *int_arr = new int[N];
+	for (int i = 0; i < N; i++) {
 		cin >> cur;
-		int_arr.push_back(cur);
+		int_arr[i] = cur;
+		if (i < M - 1)
+			window.push_back(cur);
+		else if (i == M - 1) {
+			window.push_back(cur);
+			sort(window.begin(), window.end());
+			cout << window[K - 1] << endl;
+		}
+		else {
+			window.erase(lower_bound(window.begin(), window.end(), int_arr[i - M]));
+			window.insert(lower_bound(window.begin(), window.end(), cur), cur);
+			cout << window[K - 1] << endl;
+		}
 	}
-	for (int i = 0; i <= N - M; i++) {
+	delete[] int_arr;
+	return 0;*/
+	map<int, int> int_map;
+	for (int i = 0; i < N; i++) {
 		cin >> cur;
-		int_arr.push_back(cur);
-		cout << Kth_smallest_number(int_arr, K) << endl;
-		int_arr.erase(int_arr.begin());
+		int_map.insert(i,cur);
+		if (i == M - 1) {
+			sort(int_map.begin(), int_map.end());
+			cout <<  << endl;
+		}
 	}
-	return 0;
 }
