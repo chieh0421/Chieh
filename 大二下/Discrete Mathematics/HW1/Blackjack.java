@@ -46,7 +46,7 @@ public class Blackjack {
         	BufferedWriter bw = new BufferedWriter(new FileWriter(path+"output1.txt"));
         	bw.write("D="+(ii+1)+"\n");
         	for(int j=0;j<answer.size();j++) {
-        		bw.write(String.format((j+1)+",%.3f",answer.get(j)));
+        		bw.write(String.format((j+1)+",%.3f\n",answer.get(j)));
         	}
         	bw.close();
         	//===================
