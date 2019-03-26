@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Blackjack {
-	public void main() throws Exception {
+	public static void main(String[] args) throws Exception {
 		//read file=============
 		String path = "C:\\Users\\User\\Documents\\GitHub\\Chieh\\¤j¤G¤U\\Discrete Mathematics\\HW1\\";
 		FileReader fr=new FileReader(path+"input.txt");
@@ -35,7 +35,7 @@ public class Blackjack {
         	//record cards got
         	if (card[1]!=null) {
         		for(int i=0;i<card[1].length();i++) {
-        			if (card[0].charAt(i)==',')
+        			if (card[1].charAt(i)==',')
         				continue;
         			currentpoker.get(card[1].charAt(i));
         		}
@@ -55,7 +55,7 @@ public class Blackjack {
 }
 
 class Poker{
-	private int[] cardnumbers;
+	private int[] cardnumbers=new int[10];
 	private int point;
 	private int numberofA;
 	private int totalcardnumber;
@@ -72,7 +72,7 @@ class Poker{
 	
 	public void used(char card) {
 		if (card<='9'&card>='2') {
-			cardnumbers[(int)card-1]--;
+			cardnumbers[card-'1']--;
 		}
 		switch(card) {
 		case 'A':
@@ -104,7 +104,7 @@ class Poker{
 	
 	public void back(char card) {
 		if (card<='9'&card>='2') {
-			cardnumbers[(int)card-1]++;
+			cardnumbers[card-'1']++;
 			point-=(int)card;
 		}
 		switch(card) {
@@ -149,10 +149,10 @@ class Poker{
 	
 	public ArrayList<Double> nextCardAndPossibility() {
 		ArrayList<Double> result = new ArrayList<Double>(31);
-		result.add(assumeGetCard_point('A'),(double) (cardnumbers[0]/totalcardnumber));
-		result.add(assumeGetCard_point('T'),(double) (cardnumbers[9]/totalcardnumber));
+		result.set((int)(assumeGetCard_point('A')-1),(double) (cardnumbers[0]/totalcardnumber));
+		result.set((int)(assumeGetCard_point('T')-1),(double) (cardnumbers[9]/totalcardnumber));
 		for(int i=2;i<=9;i++) {
-			result.add(assumeGetCard_point((char)i),(double) (cardnumbers[i-1]/totalcardnumber));
+			result.set((int)(assumeGetCard_point((char)i)-1),(double) (cardnumbers[i-1]/totalcardnumber));
 		}
 		return result;
 	}
