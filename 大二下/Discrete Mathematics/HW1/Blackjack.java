@@ -40,11 +40,16 @@ public class Blackjack {
         			currentpoker.get(card[1].charAt(i));
         		}
         	}
+        	
+        	ArrayList<Double> answer = currentpoker.nextCardAndPossibility();
         	//write file=========
         	BufferedWriter bw = new BufferedWriter(new FileWriter(path+"output1.txt"));
         	bw.write("D="+(ii+1)+"\n");
-        	
+        	for(int j=0;j<answer.size();j++) {
+        		bw.write(String.format((j+1)+",%.3f",answer.get(j)));
+        	}
         	bw.close();
+        	//===================
         }
 	}
 }
@@ -68,7 +73,6 @@ class Poker{
 	public void used(char card) {
 		if (card<='9'&card>='2') {
 			cardnumbers[(int)card-1]--;
-			return;
 		}
 		switch(card) {
 		case 'A':
@@ -95,27 +99,60 @@ class Poker{
 		case 'T':
 			point+=10;
 			break;
-		}
-		totalcardnumber--;
+		};
 	}
 	
-	public int oneOrEleven(){
-		if (point+10<=21)
-			return 11;
-		else
-			return 1;
+	public void back(char card) {
+		if (card<='9'&card>='2') {
+			cardnumbers[(int)card-1]++;
+			point-=(int)card;
+		}
+		switch(card) {
+		case 'A':
+			cardnumbers[0]--;
+			point--;
+			numberofA--;
+			break;
+		case 'T':
+			cardnumbers[9]--;
+			point-=10;
+			break;
+		}
+		totalcardnumber++;
+	}
+	
+	public int getPoint() {
+		if(numberofA==0) {
+			return point;
+		}
+		else {
+			if(point+10<=21) {
+				return point+=10;
+			}
+			else {
+				return point;
+			}
+		}
+	}
+	
+	public int assumeGetCard_point(char card) {
+		get(card);
+		int assumePoint;
+		assumePoint = getPoint();
+		back(card);
+		return assumePoint;
 	}
 	
 	public int getTotalCardNumber() {
 		return totalcardnumber;
 	}
 	
-	public int[][] nextCardAndPossibility() {
-		int[][] result;
-		for (int i=0;i<cardnumbers.length;i++) {
-			if(cardnumbers[i]==0)
-				continue;
-			
+	public ArrayList<Double> nextCardAndPossibility() {
+		ArrayList<Double> result = new ArrayList<Double>(31);
+		result.add(assumeGetCard_point('A'),(double) (cardnumbers[0]/totalcardnumber));
+		result.add(assumeGetCard_point('T'),(double) (cardnumbers[9]/totalcardnumber));
+		for(int i=2;i<=9;i++) {
+			result.add(assumeGetCard_point((char)i),(double) (cardnumbers[i-1]/totalcardnumber));
 		}
 		return result;
 	}
