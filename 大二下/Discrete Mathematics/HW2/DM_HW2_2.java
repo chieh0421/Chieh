@@ -32,11 +32,9 @@ public class DM_HW2_2{
             	int knowBankerCard = b.getBankerHand().get(1);
             	if(knowBankerCard>=10) {
             		cards[9]--;
-            		myPoint+=10;
             	}
             	else {
             		cards[knowBankerCard-1]--;
-            		myPoint+=knowBankerCard;
             	}
             	cardNumber--;
             	
@@ -57,7 +55,7 @@ public class DM_HW2_2{
                     }
                     if(haveAOrNot && myPoint==11)
                     	twentyOne=true;
-                    if(!twentyOne && (possibility.lessthan21(cards,myPoint,knowBankerCard,cardNumber,haveAOrNot)>=0.5 || (double)(cards[0]+cards[1])/cardNumber>=0.35)){               //According to strategy, if you want another card 
+                    if(!twentyOne && (possibility.lessthan21(cards,myPoint,cardNumber,haveAOrNot)>=0.5 || (myPoint<17 && possibility.bankerbust(cards ,knowBankerCard>=10?10:knowBankerCard,cardNumber,knowBankerCard==1?true:false)>=0.5))){               //According to strategy, if you want another card 
                         b.playerHit();      //API Example
                         cardNumber--;
                         if(!hitOrNot)
@@ -74,11 +72,9 @@ public class DM_HW2_2{
                 	int card = bankerHand.get(i);
                 	if(card>=10) {
                 		cards[9]--;
-                		myPoint+=10;
                 	}
                 	else {
                 		cards[card-1]--;
-                		myPoint+=card;
                 	}
                 	cardNumber--;
                 }
@@ -102,24 +98,48 @@ public class DM_HW2_2{
 }
 
 class possibility{
-	public static double lessthan21(int[] cards ,int myPoint, int bankerHand,int cardsUnused,boolean haveAOrNot) {
+	public static double lessthan21(int[] cards ,int myPoint,int cardsUnused,boolean haveAOrNot) {
 		double result=0.0;
-		if(!haveAOrNot || myPoint>=11) {
-			if(myPoint<11)
+		if((!haveAOrNot) || myPoint>=11) {
+			if(myPoint<=11)
 				result = 1.0;
 			else {
-				result = 0.0;
 				for(int i=1;i<=10;i++) {
-					if(myPoint+i<21)
-						result += (double)cards[i-1]/cardsUnused;
+					if(myPoint+i<=21)
+						result += (double)(cards[i-1])/cardsUnused;
 				}
 			}
 		}
 		else {
+			double cur=0.0;
 			for(int i=1;i<=10;i++) {
-				if(myPoint+i<11)
-					result += (double)cards[i-1]/cardsUnused;
+				if(myPoint+i<=11)
+					cur += (double)(cards[i-1])/cardsUnused;
+				if(myPoint+i<=21)
+					result += (double)(cards[i-1])/cardsUnused;
 			}
+			if(cur>=0.5) {
+				result=1.0;
+			}
+		}
+		return result;
+	}
+	public static double bankerbust(int[] cards ,int bankerPoint,int cardsUnused,boolean bankerHaveAOrNot) {
+		double result=0.0;
+		for(int i=1;i<=10;i++) {
+			if(cards[i-1]>0) {
+				if ((bankerPoint+i<=21 && bankerPoint+i>=17)|| (bankerHaveAOrNot&&(bankerPoint+i<=11 && bankerPoint+i>=7)))
+					result+= 0.0;
+				else if(bankerPoint+i>21) {
+					result+= (double)cards[i-1]/cardsUnused;
+				}
+				else {
+					int[] cardsCopy = new int[cards.length];
+					System.arraycopy(cards, 0, cardsCopy, 0,cards.length);
+					cardsCopy[i-1]--;
+					result += (double)cards[i-1]/ cardsUnused * bankerbust(cardsCopy, bankerPoint+i,cardsUnused-1,bankerHaveAOrNot||i==1);			
+				}
+			}			
 		}
 		return result;
 	}
