@@ -55,7 +55,7 @@ int p1Check() {
 }
 
 int p1Check2() {
-	int counter, currentMaxTimes = 0;
+	int counter;
 	for (int i = 0; i < int(hash1ByLength.size()); i++) {
 		counter = 1;
 		for (int j = 0; j < i; j++) {
@@ -103,7 +103,7 @@ void problemOne() {
 	else {
 		hashInit();
 		hashByLengthInit(s.length());
-		if (p1Check() == -1) {
+		if (p1Check2() == -1) {
 			pair<int, int>answer = p1Search(1, s.length());
 			if (answer.first == -1)
 				cout << "none\n";
